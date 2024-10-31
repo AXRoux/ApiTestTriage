@@ -43,15 +43,7 @@ A powerful and user-friendly REST API testing and troubleshooting tool built wit
 
 ## Installation & Setup
 
-### Option 1: Using Replit (Recommended)
-
-1. Visit the Replit project: [REST API Testing Tool](https://replit.com/@username/rest-api-testing-tool)
-2. Click the "Fork" button to create your own copy
-3. Wait for the environment to set up (dependencies will be installed automatically)
-4. Click the "Run" button to start the application
-5. Access the application through the provided URL in the Webview panel (default port: 5000)
-
-### Option 2: Local Installation
+### Option 1: Local Installation
 
 1. Clone the repository:
 ```bash
