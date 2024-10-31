@@ -67,10 +67,10 @@ def main():
             st.subheader("Configuration Management")
             config_name = st.text_input("Configuration Name")
             
-            if st.button("💾 Save Configuration"):
-                save_config(config_name)
-            if st.button("📂 Load Configuration"):
-                load_config(config_name)
+            # Use a single row for buttons without nested columns
+            st.button("💾 Save Configuration", on_click=lambda: save_config(config_name))
+            st.button("📂 Load Configuration", on_click=lambda: load_config(config_name))
+            
             st.markdown("</div>", unsafe_allow_html=True)
 
         with right_col:
