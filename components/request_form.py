@@ -1,6 +1,7 @@
 import streamlit as st
 from utils.request_handler import send_request
 from utils.validators import validate_url, validate_json, validate_headers
+from components.history_viewer import add_to_history
 
 def render_request_form():
     """Render the request configuration form"""
@@ -54,6 +55,15 @@ def render_request_form():
             # Store response and timing in session state
             st.session_state.response = response
             st.session_state.timing = timing
+            
+            # Add to history
+            request_data = {
+                'method': method,
+                'url': url,
+                'headers': headers,
+                'body': body
+            }
+            add_to_history(request_data, response, timing)
             
         except Exception as e:
             st.error(f"Request failed: {str(e)}")
