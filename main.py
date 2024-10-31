@@ -10,10 +10,30 @@ def main():
     st.set_page_config(
         page_title="REST API Tester",
         page_icon="🔌",
-        layout="wide"
+        layout="wide",
+        initial_sidebar_state="collapsed"
     )
 
-    st.title("REST API Testing Tool")
+    # Load custom CSS
+    with open("assets/style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+    # Custom header with embedded SVG
+    st.markdown(
+        """
+        <div class="main-header">
+            <svg width="50" height="50" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="80" height="80" rx="10" fill="#FF4B4B"/>
+                <path d="M30 50h40M50 30v40" stroke="white" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <div>
+                <h1>REST API Testing Tool</h1>
+                <p>Test, monitor, and analyze your API endpoints</p>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     # Initialize session state
     if 'response' not in st.session_state:
@@ -21,40 +41,64 @@ def main():
     if 'timing' not in st.session_state:
         st.session_state.timing = None
 
-    # Create tabs for current request, history, and health monitoring
-    tab1, tab2, tab3 = st.tabs(["Current Request", "History", "Health Monitoring"])
+    # Create tabs with custom styling
+    tabs = st.tabs([
+        "🔧 Current Request",
+        "📜 History",
+        "🔍 Health Monitoring"
+    ])
     
-    with tab1:
-        # Create two columns for the layout
-        col1, col2 = st.columns([1, 1])
+    with tabs[0]:
+        # Main content columns
+        left_col, right_col = st.columns([1, 1])
 
-        with col1:
-            st.header("Request Configuration")
+        with left_col:
+            # Request Configuration Section
+            st.markdown("<div class='form-section'>", unsafe_allow_html=True)
+            st.subheader("Request Configuration")
             render_request_form()
+            st.markdown("</div>", unsafe_allow_html=True)
 
-            # Configuration management
-            st.subheader("Save/Load Configuration")
-            save_load_col1, save_load_col2 = st.columns(2)
+            # Configuration Management Section
+            st.markdown("<div class='form-section'>", unsafe_allow_html=True)
+            st.subheader("Configuration Management")
+            config_name = st.text_input("Configuration Name")
             
-            with save_load_col1:
-                config_name = st.text_input("Configuration Name")
-            
-            with save_load_col2:
-                if st.button("Save"):
+            # Save/Load buttons in a single row
+            save_col, load_col = st.columns(2)
+            with save_col:
+                if st.button("💾 Save Configuration"):
                     save_config(config_name)
-                if st.button("Load"):
+            with load_col:
+                if st.button("📂 Load Configuration"):
                     load_config(config_name)
+            st.markdown("</div>", unsafe_allow_html=True)
 
-        with col2:
+        with right_col:
             if st.session_state.response:
-                st.header("Response")
+                st.markdown("<div class='response-section'>", unsafe_allow_html=True)
+                st.subheader("Response")
                 render_response_viewer(st.session_state.response)
+                st.markdown("</div>", unsafe_allow_html=True)
+
+                st.markdown("<div class='metrics-container'>", unsafe_allow_html=True)
                 render_performance_metrics(st.session_state.timing)
+                st.markdown("</div>", unsafe_allow_html=True)
+            else:
+                st.markdown(
+                    """
+                    <div class="empty-state">
+                        <h3>No Response Yet</h3>
+                        <p>Configure and send a request to see the response here.</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
     
-    with tab2:
+    with tabs[1]:
         render_history_viewer()
         
-    with tab3:
+    with tabs[2]:
         render_health_monitor()
 
 if __name__ == "__main__":
