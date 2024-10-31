@@ -18,7 +18,7 @@ def main():
     with open("assets/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    # Custom header with embedded SVG
+    # Custom header with embedded SVG and creator attribution
     st.markdown(
         """
         <div class="main-header">
@@ -29,6 +29,9 @@ def main():
             <div>
                 <h1>REST API Testing Tool</h1>
                 <p>Test, monitor, and analyze your API endpoints</p>
+            </div>
+            <div class="creator-info">
+                <p>Created by <a href="https://www.linkedin.com/in/replitdev" target="_blank">Replit Dev</a></p>
             </div>
         </div>
         """,
@@ -64,14 +67,10 @@ def main():
             st.subheader("Configuration Management")
             config_name = st.text_input("Configuration Name")
             
-            # Save/Load buttons in a single row
-            save_col, load_col = st.columns(2)
-            with save_col:
-                if st.button("💾 Save Configuration"):
-                    save_config(config_name)
-            with load_col:
-                if st.button("📂 Load Configuration"):
-                    load_config(config_name)
+            if st.button("💾 Save Configuration"):
+                save_config(config_name)
+            if st.button("📂 Load Configuration"):
+                load_config(config_name)
             st.markdown("</div>", unsafe_allow_html=True)
 
         with right_col:
