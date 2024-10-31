@@ -31,7 +31,7 @@ def main():
                 <p>Test, monitor, and analyze your API endpoints</p>
             </div>
             <div class="creator-info">
-                <p>Created by <a href="https://www.linkedin.com/in/rachel-chen" target="_blank">Rachel Chen</a></p>
+                <p>Created by <a href="https://www.linkedin.com/in/vance-poitier/" target="_blank">Vance Poitier</a></p>
             </div>
         </div>
         """,
