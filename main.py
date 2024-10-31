@@ -3,6 +3,7 @@ from components.request_form import render_request_form
 from components.response_viewer import render_response_viewer
 from components.performance_metrics import render_performance_metrics
 from components.history_viewer import render_history_viewer
+from components.health_monitor import render_health_monitor
 from utils.config_manager import load_config, save_config
 
 def main():
@@ -20,8 +21,8 @@ def main():
     if 'timing' not in st.session_state:
         st.session_state.timing = None
 
-    # Create tabs for current request and history
-    tab1, tab2 = st.tabs(["Current Request", "History"])
+    # Create tabs for current request, history, and health monitoring
+    tab1, tab2, tab3 = st.tabs(["Current Request", "History", "Health Monitoring"])
     
     with tab1:
         # Create two columns for the layout
@@ -52,6 +53,9 @@ def main():
     
     with tab2:
         render_history_viewer()
+        
+    with tab3:
+        render_health_monitor()
 
 if __name__ == "__main__":
     main()
