@@ -2,6 +2,7 @@ import streamlit as st
 from utils.request_handler import send_request
 from utils.validators import validate_url, validate_json, validate_headers
 from components.history_viewer import add_to_history
+from components.auth_handler import render_auth_section
 
 def render_request_form():
     """Render the request configuration form"""
@@ -15,6 +16,9 @@ def render_request_form():
         ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"],
         key="method"
     )
+    
+    # Authentication section
+    auth_headers = render_auth_section()
     
     # Headers input
     headers_str = st.text_area(
@@ -49,7 +53,10 @@ def render_request_form():
             return
 
         try:
+            # Merge authentication headers with user headers
             headers = eval(headers_str)
+            headers.update(auth_headers)
+            
             response, timing = send_request(url, method, headers, body)
             
             # Store response and timing in session state
