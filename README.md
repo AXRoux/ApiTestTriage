@@ -47,7 +47,7 @@ A powerful and user-friendly REST API testing and troubleshooting tool built wit
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/username/rest-api-testing-tool
+git clone https://github.com/AXRoux/rest-api-testing-tool
 cd rest-api-testing-tool
 ```
 
